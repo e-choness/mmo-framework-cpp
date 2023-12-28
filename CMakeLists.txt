@@ -7,7 +7,7 @@ project(MMO
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add(entry)
-add(src)
-add(extern)
-add(tests)
+add_subdirectory(entry)
+add_subdirectory(src)
+add_subdirectory(extern)
+add_subdirectory(tests)

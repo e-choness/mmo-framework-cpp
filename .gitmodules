@@ -1,0 +1,4 @@
+
+[submodule "extern/asio"]
+	path = extern/asio
+	url = https://git.code.sf.net/p/asio/git
