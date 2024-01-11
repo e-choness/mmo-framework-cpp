@@ -1,0 +1,15 @@
+{
+  "name": "asio-nntp",
+  "version": "1.0.0",
+  "dependencies": [
+    {
+      "name": "boost-asio",
+      "features": [ "ssl" ]
+    },
+    "gtest",
+    {
+      "name": "pdcurses",
+      "platform": "windows"
+    }
+  ]
+}
