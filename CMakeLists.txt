@@ -1,11 +1,14 @@
-cmake_minimum_required(VERSION 3.22 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.15)
 
 project(multiplayer-network)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-find_package(BoostAsio)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+find_package(CURL)
+find_package(stb)
 
-add_subdirectory(nntp)
-add_subdirectory(news-reader)
+add_executable(${PROJECT_NAME} src/main.cpp)
+target_link_libraries(${PROJECT_NAME}
+        CURL::libcurl
+        stb::stb)
