@@ -3,7 +3,9 @@
 
 int main(int argc, char *argv[]){
 
-    auto result = runEndpoint();
+//    auto result = runEndpointWithFixedIP();
+//    auto result = runEndpointWithGroupIP();
+    auto result = runIOServiceOnIPv4();
 
     return result == 0? EXIT_SUCCESS : EXIT_FAILURE;
 }
