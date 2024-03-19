@@ -5,5 +5,5 @@ add_executable(nntp-test
         testProcessor.cpp
         testRope.cpp
 )
-target_link_libraries(nntp-test PUBLIC nntp GTest::gmock_main)
+#target_link_libraries(nntp-test PUBLIC nntp GTest::gmock_main)
 target_compile_features(nntp-test PUBLIC cxx_std_20)
