@@ -2,5 +2,5 @@
 # To keep your changes, remove these comment lines, but the plugin won't be able to modify your requirements
 
 requirements:
-  - "libcurl/8.6.0"
-  - "stb/cci.20230920"
+  - "boost/1.84.0"
+  - "gtest/1.14.0"
