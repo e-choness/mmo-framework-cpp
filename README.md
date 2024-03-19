@@ -14,4 +14,19 @@ I have done my fair share of CMAKE, will dive into it deeper when the time comes
 Highly recommend.
 
 ## About The Program
-Following [Dmytro Radchuk]'s [Boost.Asio C++ Network Programming Cookbook](https://www.amazon.ca/Boost-Asio-Network-Programming-Cookbook-hands/dp/1783986549) for understanding C++ network programming using Boost Asio.
+Following *Dmytro Radchuk*'s [*Boost.Asio C++ Network Programming Cookbook*](https://www.amazon.ca/Boost-Asio-Network-Programming-Cookbook-hands/dp/1783986549) for understanding C++ network programming using Boost Asio.
+
+### Part I - Endpoints, Protocols
+
+With Boost Asio TCP and UDP using the same data structure so that they are interchangeable.
+
+- `boost::asio::ip::tcp::endpoint` can be swapped out by `boost::asio::ip::udp::endpoint` if required protocol needs to change.
+
+IP addresses in Boost Asio can be found in the `boost::asio::ip` namespace.
+
+- `boost::asio::ip::address` is agnostic to either `boost::asio::ip::address_v4` or `boost::asio::ip::address_v6`
+
+
+### Part II - IO Service
+
+`boost::asio::io_service` is required to instantiate before passing it to a socket.
