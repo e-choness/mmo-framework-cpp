@@ -1,5 +1,6 @@
-#include <iostream>
 #include "hello.hpp"
+#include <iostream>
+#include <boost/asio.hpp>
 
 int handleErrorCode(boost::system::error_code &ec, const std::string& custom_message){
     if(ec.value() != 0){
@@ -14,6 +15,17 @@ int handleErrorCode(boost::system::error_code &ec, const std::string& custom_mes
     }
     return 0;
 }
+
+void handleSystemErrorCode(boost::system::system_error &error, const std::string& custom_message){
+        // Failed to open the socket
+        std::cout
+                << custom_message
+                << " Error code: "
+                << error.code()
+                << " Message: "
+                << error.what();
+}
+
 int runEndpointWithFixedIP(){
     // Step1
     // Assume that the client application has already obtained the IP
@@ -73,35 +85,74 @@ int runEndpointWithGroupIP(){
 int runIOServiceOnIPv4(){
     // Step 1
     // An instance of "io_service" class is required by socket constructor
+    // all socket class constructors require an object of asio::io_service as an argument
     boost::asio::io_service  ios;
 
     // Step 2
     // Creating an object of 'tcp' class representing a TCP protocol with IPv4 as underlying protocol
+    // It acts like a data structure that contains a set of values that describe the protocol
     boost::asio::ip::tcp protocol = boost::asio::ip::tcp::v4();
 
-    // Step 3
-    // Instantiating an active TCP socket object
-    boost::asio::ip::tcp::socket sock(ios);
+//    // Step 3
+//    // Instantiating an active TCP socket object
+//    boost::asio::ip::tcp::socket sock(ios);
+//
+//    // Used to store information about error that happens
+//    // while opening the socket
+//    boost::system::error_code ec;
+//
+//    // Step 4
+//    // Opening the socket
+//    sock.open(protocol, ec);
+//
+//    std::string message = "Failed to open the socket!";
+//    // Handle any potential error codes
+//    auto result = handleErrorCode(ec, message);
+//
+//    if(result!=0){
+//        return result;
+//    }
+    try{
+        // Step 3+4 from previous example
+        boost::asio::ip::tcp::socket sock(ios, protocol);
+    }catch(boost::system::system_error& e){
+        std::string message = "Failed to open the socket!";
+        handleSystemErrorCode(e, message);
+    }
 
-    // Used to store information about error that happens
-    // while opening the socket
+    std::cout << "The socket over TCP and IPv4 is open and listening...\n";
+
+    return 0;
+
+}
+
+int runIOServiceOnIPv6() {
+    // Step 1
+    // An instance of 'io_device' class is required by socket constructor.
+    boost::asio::io_service ios;
+
+    // Step 2
+    // Creating an object of 'udp' class representing a UDP protocol with IPv6 as underlying protocol
+    boost::asio::ip::udp protocol = boost::asio::ip::udp::v6();
+
+    // Step 3
+    // Instantiating an active UDP socket object
+    boost::asio::ip::udp::socket sock(ios);
+
+    // Used to store information about error that happens while opening the socekt
     boost::system::error_code ec;
 
     // Step 4
     // Opening the socket
     sock.open(protocol, ec);
 
-    std::string message = "Failed to open the socket!";
-    // Handle any potential error codes
-    auto result = handleErrorCode(ec, message);
-
-    if(result!=0){
+    auto result = handleErrorCode(ec, "Failed to open the socket!");
+    if(result != 0){
         return result;
     }
 
-    std::cout << "The socket is open and listening...\n";
+    std::cout << "The socket over UDP and IPv6 is open and listening...\n";
 
     return 0;
-
 }
 
