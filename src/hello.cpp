@@ -82,7 +82,7 @@ int runEndpointWithGroupIP(){
     return 0;
 }
 
-int runIOServiceOnIPv4(){
+int runSenderOnIPv4(){
     // Step 1
     // An instance of "io_service" class is required by socket constructor
     // all socket class constructors require an object of asio::io_service as an argument
@@ -120,13 +120,13 @@ int runIOServiceOnIPv4(){
         handleSystemErrorCode(e, message);
     }
 
-    std::cout << "The socket over TCP and IPv4 is open and listening...\n";
+    std::cout << "The sender over TCP and IPv4 is open and ready to send data...\n";
 
     return 0;
 
 }
 
-int runIOServiceOnIPv6() {
+int runSenderOnIPv6() {
     // Step 1
     // An instance of 'io_device' class is required by socket constructor.
     boost::asio::io_service ios;
@@ -151,7 +151,36 @@ int runIOServiceOnIPv6() {
         return result;
     }
 
-    std::cout << "The socket over UDP and IPv6 is open and listening...\n";
+    std::cout << "The sender over UDP and IPv6 is open and ready to send data...\n";
+
+    return 0;
+}
+
+int runAcceptorOnIPv6() {
+    // Step 1
+    // An instance of 'io_service' class is required by socket constructor
+    boost::asio::io_service ios;
+
+    // Step 2
+    // Creating an object of 'tcp' class representing a TCP protocol with IPv6 as underlying protocol.
+    boost::asio::ip::tcp protocol = boost::asio::ip::tcp::v6();
+
+    // Step 3
+    // Instantiating an acceptor socket object.
+    boost::asio::ip::tcp::acceptor acceptor(ios);
+
+    // Used to store information about error that happens while opening the acceptor socket.
+    boost::system::error_code ec;
+
+    // Open an acceptor socket
+    acceptor.open(protocol, ec);
+
+    auto result = handleErrorCode(ec, "Failed to open the acceptor socket!");
+    if(result !=0){
+        return result;
+    }
+
+    std::cout << "The acceptor over TCP and IPv6 is open and listening...\n";
 
     return 0;
 }
