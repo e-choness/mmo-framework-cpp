@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20.0)
-project(HelloEntry VERSION 1.0.0)
+project(Server VERSION 1.0.0)
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} server.cpp)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC say-hello)
 

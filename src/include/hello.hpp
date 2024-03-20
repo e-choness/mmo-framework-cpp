@@ -15,7 +15,9 @@ void handleSystemErrorCode(boost::system::system_error &error, const std::string
 int runEndpointWithFixedIP();
 int runEndpointWithGroupIP();
 
-// Socket functions
-int runIOServiceOnIPv4();
-int runIOServiceOnIPv6();
+// sender functions
+int runSenderOnIPv4();
+int runSenderOnIPv6();
 
+// acceptor functions
+int runAcceptorOnIPv6();
