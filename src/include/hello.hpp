@@ -21,3 +21,6 @@ int runSenderOnIPv6();
 
 // acceptor functions
 int runAcceptorOnIPv6();
+
+// DNS resolver
+int runDnsResolver();
