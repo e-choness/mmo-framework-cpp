@@ -185,3 +185,40 @@ int runAcceptorOnIPv6() {
     return 0;
 }
 
+int runDnsResolver() {
+    // Step 1 Assume that the client application has already
+    // obtained the DNS name and protocol port number and represented them as strings
+    std::string host = "samplehost.com";
+    std::string port_num = "3333";
+
+    // Step 2
+    // Instantiate a io service
+    boost::asio::io_service ios;
+
+    // Step 3
+    // Creating a query
+    boost::asio::ip::tcp::resolver::query resolver_query(
+            host,
+            port_num,
+            boost::asio::ip::tcp::resolver::query::numeric_service);
+
+    // Step 4 Creating a resolver
+    boost::asio::ip::tcp::resolver resolver(ios);
+
+    // Used to store information about error that happens during the resolution process
+    boost::system::error_code ec;
+
+    // Step 5
+    boost::asio::ip::tcp::resolver::iterator it =
+            resolver.resolve(resolver_query, ec);
+
+    auto result = handleErrorCode(ec, "Failed to resolve a DNS name!");
+    if(result != 0){
+        return result;
+    }
+
+    std::cout << "The DNS resolver successfully translated domain name to ip...\n";
+
+    return 0;
+}
+
