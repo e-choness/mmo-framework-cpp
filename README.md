@@ -1,4 +1,10 @@
-# Boost Asio C++ Network Programming
+# A Simple Server-Client Chat App
+
+## About The Project
+
+This is a simple server client app for gracefully handle messsages, sessions and connections.
+
+Following *Dmytro Radchuk*'s [*Boost.Asio C++ Network Programming Cookbook*](https://www.amazon.ca/Boost-Asio-Network-Programming-Cookbook-hands/dp/1783986549) for understanding C++ network programming using Boost Asio.
 
 ## Dependencies
 
@@ -12,9 +18,6 @@ I have done my fair share of CMAKE, will dive into it deeper when the time comes
 - [Conon Clion Plugin](https://plugins.jetbrains.com/plugin/11956-conan)
 
 Highly recommend.
-
-## About The Program
-Following *Dmytro Radchuk*'s [*Boost.Asio C++ Network Programming Cookbook*](https://www.amazon.ca/Boost-Asio-Network-Programming-Cookbook-hands/dp/1783986549) for understanding C++ network programming using Boost Asio.
 
 ### Part I - Endpoints, Protocols
 
