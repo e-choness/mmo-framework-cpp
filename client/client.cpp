@@ -1,9 +1,7 @@
-#include "server/chat_server.hpp"
+#include "chat_client.hpp"
 
 int main(int argc, char **argv){
-
-//    auto result = runSenderOnIPv6();
-    auto result = runDnsResolver();
-
-    return result == 0? EXIT_SUCCESS : EXIT_FAILURE;
+    client::ChatClient client;
+    client.run();
+    return 0;
 }
