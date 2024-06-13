@@ -14,6 +14,12 @@ set(CHAT_CLIENT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/client)
 # Asio definitions
 set(ASIO_DEFINITION_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/extern)
 
+# Global common headers
+set(COMMON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/common)
+
+# Network definitions
+set(NETWORK_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/network)
+
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
@@ -28,11 +34,15 @@ add_library(${CHAT_CLIENT_LIB}
 
 # Add headers
 target_include_directories(${CHAT_SERVER_LIB} PUBLIC
+        ${COMMON_INCLUDE_DIR}
+        ${NETWORK_INCLUDE_DIR}
         ${ASIO_DEFINITION_INCLUDE_DIR}
         ${CHAT_SERVER_INCLUDE_DIR}
         ${Boost_INCLUDE_DIRS})
 
 target_include_directories(${CHAT_CLIENT_LIB} PUBLIC
+        ${COMMON_INCLUDE_DIR}
+        ${NETWORK_INCLUDE_DIR}
         ${ASIO_DEFINITION_INCLUDE_DIR}
         ${CHAT_CLIENT_INCLUDE_DIR}
         ${Boost_INCLUDE_DIRS})

@@ -1,6 +1,7 @@
 #include "chat_server.hpp"
 
-
-void ChatServer::run() {
+void server::ChatServer::run() {
 
 }
+
+

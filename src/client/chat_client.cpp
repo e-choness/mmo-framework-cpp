@@ -1,13 +1,11 @@
-
-#include <iostream>
 #include "chat_client.hpp"
 
 
-ChatClient::ChatClient() : mBuffer(10 * 1024) {
+client::ChatClient::ChatClient() : mBuffer(10 * 1024) {
 
-}
+    }
 
-void ChatClient::run() {
+void client::ChatClient::run() {
     ErrorCode errorCode;
 
     // Create a context where the platform specific interface
@@ -57,7 +55,7 @@ void ChatClient::run() {
     }
 }
 
-void ChatClient::grabAsync(TcpSocket &socket) {
+void client::ChatClient::grabAsync(TcpSocket &socket) {
     socket.async_read_some(make_buffer(mBuffer),
                            [&](ErrorCode errorCode, size_t length){
                                if(!errorCode){
@@ -67,3 +65,4 @@ void ChatClient::grabAsync(TcpSocket &socket) {
                                }
                            });
 }
+

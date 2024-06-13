@@ -1,12 +1,14 @@
 #pragma once
-#include <vector>
-#include <asio_definitions.hpp>
+#include "../common/std_common.hpp"
+#include "asio_definitions.hpp"
 
-class ChatClient{
-public:
-    ChatClient();
-    void run();
-private:
-    void grabAsync(TcpSocket& socket);
-    std::vector<char> mBuffer;
-};
+namespace client{
+    class ChatClient{
+    public:
+        ChatClient();
+        void run();
+    private:
+        void grabAsync(TcpSocket& socket);
+        std::vector<char> mBuffer;
+    };
+}
