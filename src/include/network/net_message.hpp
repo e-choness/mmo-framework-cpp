@@ -46,7 +46,7 @@ namespace network{
         }
 
         template<typename DataType>
-        friend Message<T>& operator>>(Message<T>& message, const DataType& data){
+        friend Message<T>& operator>>(Message<T>& message, DataType& data){
             // Check if it's trivial type
             static_assert(std::is_standard_layout<DataType>::value, "Data is not a trivial type, cannot be read from the vector.");
 
@@ -60,7 +60,7 @@ namespace network{
             message.mBody.resize(size);
 
             // Give updated size to the header
-            message.mBody.size() = message.size();
+            message.mHeader.mSize = message.size();
 
             return message;
         }

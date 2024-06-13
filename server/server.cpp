@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv){
 
-   ChatServer::run();
+   server::ChatServer::run();
 
    return 0;
 }
