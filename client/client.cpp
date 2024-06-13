@@ -1,6 +1,7 @@
 #include "chat_client.hpp"
 
 int main(int argc, char **argv){
-    ChatClient::run();
+    ChatClient client;
+    client.run();
     return 0;
 }
