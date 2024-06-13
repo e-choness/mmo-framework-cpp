@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv){
 
-    auto result = runAcceptorOnIPv6();
+   ChatServer::run();
 
-    return result == 0? EXIT_SUCCESS : EXIT_FAILURE;
+   return 0;
 }

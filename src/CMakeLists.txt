@@ -11,12 +11,13 @@ set(CHAT_CLIENT_LIB chat-client)
 set(CHAT_CLIENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/client)
 set(CHAT_CLIENT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/client)
 
+# Asio definitions
+set(ASIO_DEFINITION_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/extern)
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost 1.84.0 REQUIRED CONFIG)
-
 
 # Library
 add_library(${CHAT_SERVER_LIB}
@@ -27,10 +28,12 @@ add_library(${CHAT_CLIENT_LIB}
 
 # Add headers
 target_include_directories(${CHAT_SERVER_LIB} PUBLIC
+        ${ASIO_DEFINITION_INCLUDE_DIR}
         ${CHAT_SERVER_INCLUDE_DIR}
         ${Boost_INCLUDE_DIRS})
 
 target_include_directories(${CHAT_CLIENT_LIB} PUBLIC
+        ${ASIO_DEFINITION_INCLUDE_DIR}
         ${CHAT_CLIENT_INCLUDE_DIR}
         ${Boost_INCLUDE_DIRS})
 
