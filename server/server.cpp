@@ -1,4 +1,4 @@
-#include "server/chat_server.hpp"
+#include "chat_server.hpp"
 
 int main(int argc, char **argv){
 

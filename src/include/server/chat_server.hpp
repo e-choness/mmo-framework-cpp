@@ -1,26 +1,26 @@
 #pragma once
 #include <string>
+#include <memory>
 
 // Forward declare boost system error_code
-namespace boost::system{
-    class error_code;
-    class system_error;
+namespace boost::asio{
+    namespace io_context{
+        class io_context;
+    }
+    namespace ip{
+        class tcp;
+    }
 }
 
-// Error handling
-int handleErrorCode(boost::system::error_code &ec, const std::string& custom_message);
-void handleSystemErrorCode(boost::system::system_error &error, const std::string& custom_message);
+using boost::asio::ip::tcp;
+using boost::asio::io_context::io_context;
 
-// Endpoint functions
-int runEndpointWithFixedIP();
-int runEndpointWithGroupIP();
+class ChatServer{
+public:
+    ChatServer(io_context& io_context, short port)
+    void start_accept();
 
-// sender functions
-int runSenderOnIPv4();
-int runSenderOnIPv6();
-
-// acceptor functions
-int runAcceptorOnIPv6();
-
-// DNS resolver
-int runDnsResolver();
+private:
+    class Impl;
+    std::unique_ptr<Impl> impl_;
+};
