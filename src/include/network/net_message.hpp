@@ -1,6 +1,5 @@
 #pragma once
 #include "std_common.hpp"
-#include "net_connection.hpp"
 
 namespace network{
     template <typename T>
@@ -66,6 +65,10 @@ namespace network{
             return message;
         }
     };
+
+    // Forward declaration for Connection, to avoid circular header file inclusion, because net_connection.hpp contains this header file.
+    template<typename T>
+    class Connection;
 
     template<typename T>
     struct OwnedMessage{

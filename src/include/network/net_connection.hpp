@@ -4,12 +4,6 @@
 #include "asio_definitions.hpp"
 #include "net_message.hpp"
 
-template<typename T>
-struct Message;
-
-template<typename T>
-struct OwnedMessage;
-
 namespace network{
     template<typename T>
     class Connection : public std::enable_shared_from_this<Connection<T>>{
