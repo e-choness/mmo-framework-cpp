@@ -1,5 +1,6 @@
 #pragma once
 #include "std_common.hpp"
+#include "net_connection.hpp"
 
 namespace network{
     template <typename T>
@@ -13,8 +14,8 @@ namespace network{
         MessageHeader<T> mHeader{};
         std::vector<uint8_t> mBody;
 
-        // Get the size of the entire message packet in bytes
-        size_t size() const{
+        // Get the size of the entire mMessage packet in bytes
+        [[nodiscard]] size_t size() const{
             return sizeof(MessageHeader<T>) + mBody.size();
         }
 
@@ -24,7 +25,7 @@ namespace network{
             return os;
         }
 
-        // Message<T> << operator override, push data to the message body
+        // Message<T> << operator override, push data to the mMessage body
         template<typename DataType>
         friend Message<T>& operator<< (Message<T>& message, const DataType& data){
             // Check if it's trivial type
@@ -33,7 +34,7 @@ namespace network{
             // Cache the vector size, also the start point to insert data
             size_t size = message.mBody.size();
 
-            // Resize message body for new data
+            // Resize mMessage body for new data
             message.mBody.resize(message.mBody.size() + sizeof(DataType));
 
             // Copy the data into new vector space
@@ -63,6 +64,17 @@ namespace network{
             message.mHeader.mSize = message.size();
 
             return message;
+        }
+    };
+
+    template<typename T>
+    struct OwnedMessage{
+        std::shared_ptr<Connection<T>> mRemote = nullptr;
+        Message<T> mMessage;
+
+        friend std::ostream& operator<<(std::ostream& os, const OwnedMessage<T>& message){
+            os << message.mMessage;
+            return os;
         }
     };
 }
