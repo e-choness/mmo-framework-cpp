@@ -8,6 +8,7 @@ typedef boost::asio::io_context IoContext;
 typedef boost::asio::ip::tcp::endpoint TcpEndpoint;
 typedef boost::system::error_code ErrorCode;
 typedef boost::asio::ip::tcp Tcp;
+typedef boost::asio::ip::tcp::resolver TcpResolver;
 typedef boost::asio::ip::tcp::socket TcpSocket;
 typedef boost::asio::io_context::work ContextWork;
 

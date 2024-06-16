@@ -14,11 +14,11 @@ namespace network{
         // Deconstruct
         virtual ~Connection(){}
     public:
-        bool ConnectToServer();
-        bool Disconnect();
-        bool IsConnected() const;
+        bool connectToServer();
+        bool disconnect();
+        bool isConnected() const;
     public:
-        bool Send(const Message<T>& message);
+        bool send(const Message<T>& message);
 
     protected:
         // Each connection has a unique socket to a remote
@@ -27,9 +27,9 @@ namespace network{
         IoContext& mContext;
 
         // A queue holds all messages out to the remote endpoints from this connection
-        TSQueue<Message<T>> mMessageOut;
+        TSQueue<Message<T>> mMessagesOut;
 
         // A queue holds all messages come in from the remote endpoints to this connection
-        TSQueue<OwnedMessage<T>>& mMessageIn;
+        TSQueue<OwnedMessage<T>>& mMessagesIn;
     };
 }
