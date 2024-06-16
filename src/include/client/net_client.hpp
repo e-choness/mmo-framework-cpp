@@ -1,18 +1,7 @@
 #pragma once
 #include "net_message.hpp"
-#include "net_connection.hpp"
 #include "net_ts_queue.hpp"
-
-namespace client{
-    class ChatClient{
-    public:
-        ChatClient();
-        void run();
-    private:
-        void grabAsync(TcpSocket& socket);
-        std::vector<char> mBuffer;
-    };
-}
+#include "net_connection.hpp"
 
 namespace network{
     template<typename T>
