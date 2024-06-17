@@ -14,6 +14,7 @@ class CustomClient : public network::ClientInterface<CustomMessageType>{
             message.mHeader.mId = CustomMessageType::Fire;
             message << x << y;
             mConnection->send(message);
+            return true;
         }
 //    private:
 //        void grabAsync(TcpSocket& socket);

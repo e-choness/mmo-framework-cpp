@@ -44,7 +44,7 @@
 //                "Host: example.com\r\n"
 //                "Connection: close\r\n\r\n";
 //
-//        socket.write_some(make_buffer(request), errorCode);
+//        socket.write_some(makeBuffer(request), errorCode);
 //
 //        // Wait excessive long for completely  grabbing data from the website
 //        using namespace std::chrono_literals;
@@ -56,7 +56,7 @@
 //}
 //
 //void client::CustomClient::grabAsync(TcpSocket &socket) {
-//    socket.async_read_some(make_buffer(mBuffer),
+//    socket.async_read_some(makeBuffer(mBuffer),
 //                           [&](ErrorCode errorCode, size_t length){
 //                               if(!errorCode){
 //                                   std::cout << "\n\nRead " << length << " bytes\n";
