@@ -1,7 +1,7 @@
-#include "chat_client.hpp"
+#include "custom_client.hpp"
 
 int main(int argc, char **argv){
-    client::ChatClient client;
-    client.run();
+//    client::CustomClient client;
+//    client.run();
     return 0;
 }
