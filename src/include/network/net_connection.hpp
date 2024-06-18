@@ -14,13 +14,17 @@ namespace network{
         // Deconstruct
         virtual ~Connection(){}
     public:
-        bool connectToServer();
+        bool connectToServer(uint32_t id){ mId = id; }
         bool disconnect();
         bool isConnected() const;
     public:
+        uint32_t getId() const { return mId; }
         bool send(const Message<T>& message);
 
     protected:
+        // Connection unique ID
+        uint32_t mId;
+
         // Each connection has a unique socket to a remote
         TcpSocket mSocket;
         // This context is shared with the entire asio instance, provided by either client or server
