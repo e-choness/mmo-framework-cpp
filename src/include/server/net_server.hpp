@@ -49,18 +49,18 @@ namespace network{
                     // No error logic
                     std::cout << "[Server] Accept connection: " << socket.remote_endpoint() << "\n";
 
-                    auto newConnection = std::make_shared<Connection<T>>(Connection<T>::owner::server, mContext, std::move(socket), mMessagesIn);
-
-                    if(onClientConnect(newConnection)){
-                        // Connection allowed, put it in the queue
-                        mConnections.push_back(newConnection);
-
-                        mConnections.back()->connectToServer(mIdCounter++);
-
-                        std::cout << "[" << mConnections.back()->getId() << "] Connection Approved.\n";
-                    }else{
-                        std::cout << "[Server] Connection denied.\n";
-                    }
+//                    auto newConnection = std::make_shared<Connection<T>>(Connection<T>::owner::server, mContext, std::move(socket), mMessagesIn);
+//
+//                    if(onClientConnect(newConnection)){
+//                        // Connection allowed, put it in the queue
+//                        mConnections.push_back(newConnection);
+//
+//                        mConnections.back()->connectToServer(mIdCounter++);
+//
+//                        std::cout << "[" << mConnections.back()->getId() << "] Connection Approved.\n";
+//                    }else{
+//                        std::cout << "[Server] Connection denied.\n";
+//                    }
                 }else{
                     // Resolve error during acceptance
                     std::cout << "[Server] Accept connection error: " << errorCode.message() << "\n";
