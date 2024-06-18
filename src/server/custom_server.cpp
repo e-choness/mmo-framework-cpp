@@ -1,9 +1,6 @@
-#include "chat_server.hpp"
-#include "net_message.hpp"
+#include "custom_server.hpp"
 
-
-
-void server::ChatServer::run() {
+void server::CustomServer::run() {
 //    network::Message<CustomMessageType> message;
 //    message.mHeader.mId = CustomMessageType::Fire;
 //

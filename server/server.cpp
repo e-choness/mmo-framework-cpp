@@ -1,8 +1,13 @@
-#include "chat_server.hpp"
+#include "custom_server.hpp"
 
 int main(int argc, char **argv){
 
-   server::ChatServer::run();
+   server::CustomServer server(60000);
+   server.start();
+
+   while(true){
+       server.update();
+   }
 
    return 0;
 }
