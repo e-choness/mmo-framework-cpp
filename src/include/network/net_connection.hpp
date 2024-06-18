@@ -8,22 +8,46 @@ namespace network{
     template<typename T>
     class Connection : public std::enable_shared_from_this<Connection<T>>{
     public:
+        enum class Owner{
+            Server,
+            Client
+        };
+
         // Constructor
-        Connection(){}
+        Connection(Owner parent, IoContext& context, TcpSocket socket, TSQueue<OwnedMessage<T>>& messageIn):
+        mContext(context), mSocket(std::move(socket)), mMessagesIn(messageIn){
+            mOwner = parent;
+        }
 
         // Deconstruct
         virtual ~Connection(){}
-    public:
-        bool connectToServer(uint32_t id){ mId = id; }
-        bool disconnect();
-        bool isConnected() const;
-    public:
+
+
         uint32_t getId() const { return mId; }
+
+    public:
+        void connectToServer(uint32_t id = 0){ mId = id; }
+
+        void connectToClient(uint32_t id = 0){
+            if(mOwner == Owner::Server){
+                if(mSocket.is_open())
+                    mId = id;
+            }
+        }
+        bool disconnect();
+
+        bool isConnected() const{
+            return mSocket.is_open();
+        }
+    public:
         bool send(const Message<T>& message);
 
     protected:
         // Connection unique ID
-        uint32_t mId;
+        uint32_t mId = 0;
+
+        // Owner type
+        Owner mOwner = Owner::Server;
 
         // Each connection has a unique socket to a remote
         TcpSocket mSocket;

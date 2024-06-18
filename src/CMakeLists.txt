@@ -27,10 +27,10 @@ find_package(Boost 1.84.0 REQUIRED CONFIG)
 
 # Library
 add_library(${CHAT_SERVER_LIB}
-        ${CHAT_SERVER_SOURCE_DIR}/chat_server.cpp)
+        ${CHAT_SERVER_SOURCE_DIR}/custom_server.cpp)
 
 add_library(${CHAT_CLIENT_LIB}
-        ${CHAT_CLIENT_SOURCE_DIR}/chat_client.cpp)
+        ${CHAT_CLIENT_SOURCE_DIR}/custom_client.cpp)
 
 # Add headers
 target_include_directories(${CHAT_SERVER_LIB} PUBLIC
