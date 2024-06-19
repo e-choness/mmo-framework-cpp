@@ -101,7 +101,7 @@ namespace network{
         void update(size_t maxMessageCount = -1){
             size_t count = 0;
             while(maxMessageCount < count && !mConnections.empty()){
-                auto message = mMessagesIn.pop_front();
+                auto message = mMessagesIn.popFront();
 
                 onMessage(message.mRemote, message.mMessage);
 
