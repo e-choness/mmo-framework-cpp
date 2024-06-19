@@ -19,24 +19,24 @@ namespace network{
             return mDequeue.back();
         }
 
-        void push_back(const T& item){
+        void pushBack(const T& item){
             std::scoped_lock lock(mQueueLock);
             mDequeue.emplace_back(std::move(item));
         }
 
-        void push_front(const T& item){
+        void pushFront(const T& item){
             std::scoped_lock lock(mQueueLock);
             mDequeue.emplace_front(std::move(item));
         }
 
-        T pop_front(){
+        T popFront(){
             std::scoped_lock lock(mQueueLock);
             auto t = std::move(mDequeue.front());
             mDequeue.pop_front();
             return t;
         }
 
-        T pop_back(){
+        T popBack(){
             std::scoped_lock lock(mQueueLock);
             auto t = std::move(mDequeue.back());
             mDequeue.pop_back();
@@ -54,12 +54,13 @@ namespace network{
             mDequeue.clear();
         }
 
+        bool isEmpty(){
+            std::scoped_lock lock(mQueueLock);
+            return mDequeue.empty();
+        }
+
     protected:
         std::mutex mQueueLock;
         std::deque<T> mDequeue;
-    private:
-        void lock(){
-            std::scoped_lock lock(mQueueLock);
-        }
     };
 }
