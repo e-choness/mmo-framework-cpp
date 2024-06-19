@@ -3,22 +3,11 @@
 #include "client_types.hpp"
 
 namespace client{
-class CustomClient : public network::ClientInterface<CustomMessageType>{
+    class CustomClient : public network::ClientInterface<MessageType>{
     public:
-//        CustomClient();
-//        void run();
-        ~CustomClient() override;
+        CustomClient();
 
-        bool FireBullet(float x, float y){
-            network::Message<CustomMessageType> message;
-            message.mHeader.mId = CustomMessageType::Fire;
-            message << x << y;
-            mConnection->send(message);
-            return true;
-        }
-//    private:
-//        void grabAsync(TcpSocket& socket);
-//        std::vector<char> mBuffer;
+        ~CustomClient() override= default;
     };
 }
 

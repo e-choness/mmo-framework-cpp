@@ -2,8 +2,11 @@
 #include "std_common.hpp"
 
 namespace client{
-    enum class CustomMessageType : uint32_t {
-        Fire,
-        Move
+    enum class MessageType : uint32_t {
+        Accept,
+        Deny,
+        Ping,
+        All,
+        Message
     };
 }

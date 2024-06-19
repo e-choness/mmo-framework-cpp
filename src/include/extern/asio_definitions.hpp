@@ -12,6 +12,7 @@ typedef boost::asio::ip::tcp::resolver TcpResolver;
 typedef boost::asio::ip::tcp::socket TcpSocket;
 typedef boost::asio::io_context::work ContextWork;
 typedef boost::asio::ip::tcp::acceptor TcpAcceptor;
+typedef boost::asio::ip::tcp::resolver::results_type ResultType;
 
 inline boost::asio::ip::address make_address(const std::string& str, ErrorCode ec){
     return boost::asio::ip::make_address(str, ec);
@@ -58,4 +59,9 @@ inline auto asyncWrite(TcpSocket socket, T& content, Handler handler){
 template<typename Handler>
 inline auto post(IoContext& context, Handler handler){
     return boost::asio::post(context, handler);
+}
+
+template<typename Handler>
+inline auto connectAsync(TcpSocket socket, ResultType& endpoints, Handler handler){
+    return boost::asio::async_connect(socket, endpoints, handler);
 }

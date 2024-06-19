@@ -20,13 +20,25 @@ namespace network{
         }
 
         // Deconstruct
-        virtual ~Connection(){}
+        virtual ~Connection()= default;
 
 
-        uint32_t getId() const { return mId; }
+        [[nodiscard]] uint32_t getId() const { return mId; }
 
     public:
-        void connectToServer(uint32_t id = 0){ mId = id; }
+        void connectToServer(ResultType& endpoints){
+            if(mOwner == Owner::Client){
+                connectAsync(mSocket, endpoints,
+                             [this](ErrorCode errorCode, TcpEndpoint endpoint){
+                    if(!errorCode){
+                        readHeaderAsync();
+                    }else{
+                        std::cout << "[" << mId << "] failed to connect to the server.\n";
+                    }
+
+                });
+            }
+        }
 
         void connectToClient(uint32_t id = 0){
             if(mOwner == Owner::Server){
@@ -89,7 +101,7 @@ namespace network{
         }
 
         void writeHeaderAsync(){
-            asyncRead(mSocket, mMessagesOut.front().mHeader,
+            asyncWrite(mSocket, mMessagesOut.front().mHeader,
                       [this](ErrorCode errorCode, size_t length){
                                 if(!errorCode){
                                     // No error logic here
@@ -110,7 +122,7 @@ namespace network{
         }
 
         void writeBodyAsync(){
-            asyncReadContainer(mSocket, mMessagesOut.front().mBody,
+            asyncWriteContainer(mSocket, mMessagesOut.front().mBody,
                                [this](ErrorCode errorCode, size_t length){
                                         if(!errorCode){
                                             mMessagesOut.popFront();

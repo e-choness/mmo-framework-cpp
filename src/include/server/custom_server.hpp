@@ -9,7 +9,6 @@ namespace server{
         [[maybe_unused]] explicit CustomServer(uint16_t port) : network::ServerInterface<MessageType>(port){
 
             }
-            static void run();
         protected:
             bool onClientConnect(std::shared_ptr<network::Connection<MessageType>> client) override{
                 return true;
