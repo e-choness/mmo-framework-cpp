@@ -6,24 +6,27 @@
 namespace network{
     template<typename T>
     class ClientInterface{
-        ClientInterface() : mSocket(mContext){
-            // Construct the socket with the io context
-        }
-
+    public:
+        ClientInterface() = default;
         virtual ~ClientInterface(){
             // Disconnect from the server when the client app is destroyed.
             disconnect();
         }
+
     public:
         // Connect to the server with a hostname or an ip address and a port
         bool connect(const std::string& host, const uint16_t port){
             try{
-                // Create a connection and giving its address to a unique pointer
-                mConnection = std::make_unique<Connection<T>>();
-
                 // Resolve hostname or ip address into machine-readable address
                 TcpResolver resolver(mContext);
                 auto endpoints = resolver.resolve(host, std::to_string(port));
+
+                // Create a connection and giving its address to a unique pointer
+                mConnection = std::make_unique<Connection<T>>(
+                        Connection<T>::Owner::Client,
+                        mContext,
+                        TcpSocket(mContext),
+                        mMessagesIn);
 
                 // Tell the connection object to connect to server
                 mConnection->connectToServer(endpoints);
@@ -35,8 +38,6 @@ namespace network{
                 std::cerr << "Client Exception: " << e.what() << "\n";
                 return false;
             }
-
-
         }
 
         // Disconnect from the server
@@ -70,9 +71,6 @@ namespace network{
 
         // A thread to run work commands
         std::thread mContextThread;
-
-        // The hardware socket that connects to the server
-        TcpSocket mSocket;
 
         // The unique pointer of a Connection that handles data transfer
         std::unique_ptr<Connection<T>> mConnection;
