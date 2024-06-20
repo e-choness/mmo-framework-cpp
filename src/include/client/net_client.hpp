@@ -19,10 +19,10 @@ namespace network{
         // Connect to the server with a hostname or an ip address and a port
         bool connect(const std::string& host, const uint16_t port){
             try{
-
                 // Resolve hostname or ip address into machine-readable address
                 TcpResolver resolver(mContext);
                 auto endpoints = resolver.resolve(host, std::to_string(port));
+
                 // Create a connection and giving its address to a unique pointer
                 mConnection = std::make_unique<Connection<T>>(
                         Connection<T>::Owner::Client,

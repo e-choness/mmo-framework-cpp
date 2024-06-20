@@ -28,8 +28,8 @@ namespace network{
     public:
         void connectToServer(ResultType& endpoints){
             if(mOwner == Owner::Client){
-                connectAsync(mSocket, endpoints,
-                             [this](ErrorCode errorCode, TcpEndpoint endpoint){
+                boost::asio::async_connect(mSocket, endpoints,
+                             [this](ErrorCode errorCode, TcpEndpoint& endpoint){
                     if(!errorCode){
                         readHeaderAsync();
                     }else{
@@ -51,7 +51,7 @@ namespace network{
         }
         void disconnect(){
             if(isConnected())
-                post(mContext, [this](){ mSocket.close();});
+                boost::asio::post(mContext, [this](){ mSocket.close();});
         }
 
         [[nodiscard]] bool isConnected() const{
@@ -59,7 +59,8 @@ namespace network{
         }
     public:
         void send(const Message<T>& message) {
-            post(mContext, [this, message](){
+            boost::asio::post(mContext,
+                              [this, message](){
                 auto isWriting = !mMessagesOut.isEmpty();
                 mMessagesOut.pushBack(message);
 
@@ -73,7 +74,9 @@ namespace network{
     private:
         // Prime context to read a message header
         void readHeaderAsync(){
-            asyncRead(mSocket, mTempMsgIn.mHeader, [this](ErrorCode errorCode, size_t length){
+            boost::asio::async_read(mSocket,
+                                    boost::asio::buffer(&mTempMsgIn.mHeader, sizeof(MessageHeader<T>)),
+                                    [this](ErrorCode errorCode, size_t length){
                 if(!errorCode){
                     if(mTempMsgIn.mHeader.mSize > 0){
                         mTempMsgIn.mBody.resize(mTempMsgIn.mHeader.mSize);
@@ -90,7 +93,9 @@ namespace network{
 
         // Prime context to read a message body
         void readBodyAsync(){
-            asyncReadContainer(mSocket, mTempMsgIn.mBody, [this](ErrorCode errorCode, size_t length){
+            boost::asio::async_read(mSocket,
+                                    boost::asio::buffer(mTempMsgIn.mBody.data(), mTempMsgIn.mBody.size()),
+                                    [this](ErrorCode errorCode, size_t length){
                 if(!errorCode){
                     addToMessagesIn();
                 }else{
@@ -101,8 +106,9 @@ namespace network{
         }
 
         void writeHeaderAsync(){
-            asyncWrite(mSocket, mMessagesOut.front().mHeader,
-                      [this](ErrorCode errorCode, size_t length){
+            boost::asio::async_write(mSocket,
+                                     boost::asio::buffer(&mMessagesOut.front().mHeader, sizeof(MessageHeader<T>)),
+                                     [this](ErrorCode errorCode, size_t length){
                                 if(!errorCode){
                                     // No error logic here
                                     if(mMessagesOut.front().mBody.size() > 0){
@@ -122,8 +128,9 @@ namespace network{
         }
 
         void writeBodyAsync(){
-            asyncWriteContainer(mSocket, mMessagesOut.front().mBody,
-                               [this](ErrorCode errorCode, size_t length){
+            boost::asio::async_write(mSocket,
+                                     boost::asio::buffer(mMessagesOut.front().mBody.data(), mMessagesOut.front().mBody.size()),
+                                     [this](ErrorCode errorCode, size_t length){
                                         if(!errorCode){
                                             mMessagesOut.popFront();
 

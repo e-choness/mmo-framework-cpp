@@ -58,9 +58,9 @@ namespace network{
 
                     if(onClientConnect(newConnection)){
                         // Connection allowed, put it in the queue
-                        mConnections.push_back(newConnection);
+                        mConnections.push_back(std::move(newConnection));
 
-                        mConnections.back()->connectToServer(mIdCounter++);
+                        mConnections.back()->connectToClient(mIdCounter++);
 
                         std::cout << "[" << mConnections.back()->getId() << "] Connection Approved.\n";
                     }else{

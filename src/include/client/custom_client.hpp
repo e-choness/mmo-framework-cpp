@@ -1,9 +1,9 @@
 #pragma once
 #include "net_client.hpp"
-#include "client_types.hpp"
+#include "net_message_types.hpp"
 
 namespace client{
-    class CustomClient : public network::ClientInterface<MessageType>{
+    class CustomClient : public network::ClientInterface<network::MessageType>{
     public:
         CustomClient();
 
