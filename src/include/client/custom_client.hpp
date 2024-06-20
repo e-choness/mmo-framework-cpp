@@ -5,8 +5,7 @@
 namespace client{
     class CustomClient : public network::ClientInterface<network::MessageType>{
     public:
-        CustomClient();
-
+        CustomClient() = default;
         ~CustomClient() override= default;
     };
 }

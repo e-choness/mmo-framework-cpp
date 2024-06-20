@@ -6,10 +6,8 @@
 namespace network{
     template<typename T>
     class ClientInterface{
-        ClientInterface() : mSocket(mContext){
-            // Construct the socket with the io context
-        }
     public:
+        ClientInterface() = default;
         virtual ~ClientInterface(){
             // Disconnect from the server when the client app is destroyed.
             disconnect();
@@ -73,9 +71,6 @@ namespace network{
 
         // A thread to run work commands
         std::thread mContextThread;
-
-        // The hardware socket that connects to the server
-        TcpSocket mSocket;
 
         // The unique pointer of a Connection that handles data transfer
         std::unique_ptr<Connection<T>> mConnection;

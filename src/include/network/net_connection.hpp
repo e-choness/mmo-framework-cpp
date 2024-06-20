@@ -26,10 +26,10 @@ namespace network{
         [[nodiscard]] uint32_t getId() const { return mId; }
 
     public:
-        void connectToServer(ResultType& endpoints){
+        void connectToServer(const ResultType& endpoints){
             if(mOwner == Owner::Client){
                 boost::asio::async_connect(mSocket, endpoints,
-                             [this](ErrorCode errorCode, TcpEndpoint& endpoint){
+                             [this](const ErrorCode errorCode, const TcpEndpoint& endpoint){
                     if(!errorCode){
                         readHeaderAsync();
                     }else{
