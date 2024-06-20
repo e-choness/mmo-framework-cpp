@@ -10,16 +10,26 @@ namespace server{
 
             }
         protected:
+            // Gets called when a client connect to the server
             bool onClientConnect(std::shared_ptr<network::Connection<network::MessageType>> client) override{
                 return true;
             }
 
+            // Gets called when a client disconnect from the server
             void onClientDisconnect(std::shared_ptr<network::Connection<network::MessageType>> client) override{
 
             }
 
+            // Gets called when a message arrives
             void onMessage(std::shared_ptr<network::Connection<network::MessageType>> client, const network::Message<network::MessageType>& message) override{
+                switch (message.mHeader.mId) {
+                    case network::MessageType::Ping:{
+                        std::cout << "[Client " << client.get() << "]: pings the server.\n";
+                        client->send(message);
+                    }
+                    break;
 
+                }
             }
     };
 }

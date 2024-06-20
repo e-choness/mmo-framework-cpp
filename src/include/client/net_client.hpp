@@ -38,6 +38,7 @@ namespace network{
                 std::cerr << "Client Exception: " << e.what() << "\n";
                 return false;
             }
+            return true;
         }
 
         // Disconnect from the server
@@ -59,6 +60,10 @@ namespace network{
         bool isConnected(){
             if(mConnection) return mConnection->isConnected();
             else return false;
+        }
+
+        void send(const Message<T>& message){
+            mConnection->send(message);
         }
 
         TSQueue<OwnedMessage<T>>& incoming(){
