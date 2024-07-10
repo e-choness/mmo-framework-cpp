@@ -138,7 +138,7 @@ namespace network{
                                                 writeHeaderAsync();
                                             }
                                         }else{
-                                            std::cout << "[" << mId << "] failed to wirte the body.\n";
+                                            std::cout << "[" << mId << "] failed to write the body.\n";
                                             mSocket.close();
                                         }
             });

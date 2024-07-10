@@ -8,20 +8,6 @@ void updateOldKeys(){
         old_key[i] = key[i];
 }
 
-bool isConsoleWindowFocused(){
-    const auto foreground = GetForegroundWindow();
-    DWORD foregroundProcessId;
-
-    GetWindowThreadProcessId(foreground, &foregroundProcessId);
-
-    const auto currentProcessId = GetCurrentProcessId();
-
-    std::cout << "foreground id: " << foregroundProcessId << "\n";
-    std::cout << "current process id: " << currentProcessId << "\n";
-
-    return foregroundProcessId == currentProcessId;
-}
-
 int main(int argc, char **argv){
     client::CustomClient client;
     client.connect("127.0.0.1", 60000);
@@ -46,7 +32,7 @@ int main(int argc, char **argv){
 
         if(client.isConnected()){
             if(!client.incoming().isEmpty()){
-                auto message = client.incoming().popFront().mMessage;
+                network::Message<network::MessageType> message = client.incoming().popFront().mMessage;
 
                 switch (message.mHeader.mId) {
                     case network::MessageType::Ping:
