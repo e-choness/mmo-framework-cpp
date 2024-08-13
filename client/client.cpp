@@ -44,6 +44,16 @@ int main(int argc, char **argv){
                         std::cout << "[Client] Ping:" << std::chrono::duration<double>(timeNow - timeThen).count() << "\n";
                     }
                         break;
+                    case network::MessageType::Accept:
+                        break;
+                    case network::MessageType::Deny:
+                        break;
+                    case network::MessageType::All:
+                        break;
+                    case network::MessageType::Message:
+                        break;
+                    default:
+                        break;
                 }
             }
         }else{
